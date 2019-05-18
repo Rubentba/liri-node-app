@@ -3,7 +3,8 @@ require("dotenv").config();
 const keys = require("./keys.js"),
       axios = require("axios"),
       fs = require("fs"),
-      Spotify = require("node-spotify-api")
+      Spotify = require("node-spotify-api"),
+      moment = require("moment")
 
 var search = process.argv[2],
     term = process.argv.slice(3).join(" ")
@@ -30,9 +31,31 @@ var APIs = function() {
     }
 
     this.movieThis = function(movie) {
+
+        let URL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy"
+
+        axios.get(URL).then(function(response) {
+
+            console.log("Movie title: " + response.data.Title)
+            console.log("Release year: " + response.data.Year)
+            console.log("IMBD rating: " + response.data.imdbRating)
+            console.log("Rotten Tomatoes rating: " + response.data.Ratings[1].Value)
+            console.log("Country where produced: " + response.data.Country)
+            console.log("Languages: " + response.data.Language)
+            console.log("Actors: " + response.data.Actors)
+        })
     }
 
-    this.concertThis = function(concert) {
+    this.concertThis = function(artist) {
+
+        let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
+
+        axios.get(URL).then(function(response) {
+
+            console.log("Name of the venue: " + response.data[0].venue.name)
+            console.log("Venue location: " + response.data[0].venue.city + ", " + response.data[0].venue.country)
+            console.log("Event Date: " + moment(response.data[0].datetime).format("MM-DD-YYYY"))
+        })
     }
 
     this.doWhatThis = function(doWhat) {
