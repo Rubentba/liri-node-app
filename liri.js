@@ -12,7 +12,9 @@ var search = process.argv[2],
 var APIs = function() {
 
     this.spotifyThis = function(song) {
-
+        if(!song){
+            song = "The Sign by Ace of Base"
+        }
         var spotify = new Spotify(keys.spotify)
 
         spotify.search({ type: 'track', query: song }, function(error, data) {
@@ -31,6 +33,9 @@ var APIs = function() {
     }
 
     this.movieThis = function(movie) {
+        if(!movie) {
+            movie = "Mr. Nobody"
+        }
 
         let URL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy"
 
