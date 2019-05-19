@@ -18,3 +18,9 @@
 - Node-Spotify-API (via NPM)
 - Node-Bands-In-Town-API (via Axios calls)
 - Node-OMDB-API (via Axios calls)
+
+## Links
+- My Portfolio: https://rubentba.github.io/vPortfolio/
+- Repository for this project: https://github.com/Rubentba/liri-node-app
+- Github Profile: https://github.com/Rubentba
+- Linkedin Profile: https://www.linkedin.com/in/ruben-torres-beltran-5385b5180/
