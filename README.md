@@ -9,7 +9,7 @@
 
 - do-what-it-says: Takes no parameter. Instead, it will call whatever is currently in random.txt at that time.
 
-- All commands should (do) have an fs.appendFile function to push the response of the command into log.txt file.
+- Log.txt: All commands should (do) have an fs.appendFile function to push the response of the command into log.txt file.
 
 ## Technologies Used
 - Node.js
