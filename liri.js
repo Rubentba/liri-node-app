@@ -9,9 +9,7 @@ const keys = require("./keys.js"),
 var search = process.argv[2],
     term = process.argv.slice(3).join(" ")
 
-var APIs = function() {
-
-    this.spotifyThis = function(song) {
+spotifyThis = function(song) {
         if(!song){
             song = "The Sign by Ace of Base"
         }
@@ -30,9 +28,9 @@ var APIs = function() {
 				}
             }
         })
-    }
+}
 
-    this.movieThis = function(movie) {
+movieThis = function(movie) {
         if(!movie) {
             movie = "Mr. Nobody"
         }
@@ -49,9 +47,9 @@ var APIs = function() {
             console.log("Languages: " + response.data.Language)
             console.log("Actors: " + response.data.Actors)
         })
-    }
+}
 
-    this.concertThis = function(artist) {
+concertThis = function(artist) {
 
         let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
 
@@ -61,44 +59,41 @@ var APIs = function() {
             console.log("Venue location: " + response.data[0].venue.city + ", " + response.data[0].venue.country)
             console.log("Event Date: " + moment(response.data[0].datetime).format("MM-DD-YYYY"))
         })
-    }
-
-    this.doWhatThis = function() {
-        fs.readFile("random.txt", "utf8", function(error, data) {
-            if (error) {
-                console.log(error)
-            }else {
-
-                let randomText = data.split(",")
-                    search = randomText[0]
-                    term = randomText[1]
-                console.log(randomText[0] + " " +randomText[1])
-            }
-        })
-    }
 }
 
-var apis = new APIs()
+doWhatThis = function() {
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+            console.log(error)
+        }else {
+
+            let randomText = data.split(",")
+                search = randomText[0]
+                term = randomText[1]
+            spotifyThis(randomText[1])
+        }
+    })
+}
 
 // State what API you're calling, then prints response.
 if (search === "concert-this") {
     console.log("Searching for concerts...")
-    apis.concertThis(term)
+    concertThis(term)
 } 
 
 else if(search === "spotify-this-song") {
     console.log("Searching for song...")
-    apis.spotifyThis(term)
+    spotifyThis(term)
 }
 
 else if(search === "movie-this") {
     console.log("Searching for movie...")
-    apis.movieThis(term)
+    movieThis(term)
 }
 
 else if(search === "do-what-it-says") {
     console.log("...")
-    apis.doWhatThis(term)
+    doWhatThis()
 }
 
 else if(search === undefined) {
