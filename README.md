@@ -12,6 +12,7 @@
 ## Technologies Used
 - Node.js
 - Javascript
+- Moment.js
 - Node-Spotify-API (via NPM Package)
 - Node-Bands-In-Town-API (via axios calls)
 - Node-OMDB-API (via axios calls)
