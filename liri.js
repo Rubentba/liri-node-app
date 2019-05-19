@@ -10,24 +10,29 @@ var search = process.argv[2],
     term = process.argv.slice(3).join(" ")
 
 spotifyThis = function(song) {
-        if(!song){
-            song = "The Sign by Ace of Base"
-        }
-        var spotify = new Spotify(keys.spotify)
+    if(!song){
+        song = "The Sign by Ace of Base"
+    }
+    var spotify = new Spotify(keys.spotify)
 
-        spotify.search({ type: 'track', query: song }, function(error, data) {
-           
-            if (error) {
-                console.log(error)
-            } else { 
-                for (var i = 0; i < data.tracks.items[0].artists.length; i++) {
-                    console.log("Artist: " + data.tracks.items[0].artists[0].name)
-                    console.log("Song: " + data.tracks.items[0].name)
-                    console.log("Preview Link: " + data.tracks.items[0].preview_url)
-                    console.log("Album: " + data.tracks.items[0].album.name)
-				}
+    spotify.search({ type: 'track', query: song }, function(error, data) {
+        
+        if (error) {
+            console.log(error)
+        } else { 
+            for (var i = 0; i < data.tracks.items[0].artists.length; i++) {
+                fs.appendFile("log.txt","\n" +  "Artist: " + data.tracks.items[0].artists[0].name + "\n" + "Song: " + data.tracks.items[0].name + "\n" + "Preview Link: " + data.tracks.items[0].preview_url + "\n" + "Album: " + data.tracks.items[0].album.name, function(err) {
+                    if (err) {
+                        console.log(err)
+                    }
+                })
+                console.log("Artist: " + data.tracks.items[0].artists[0].name)
+                console.log("Song: " + data.tracks.items[0].name)
+                console.log("Preview Link: " + data.tracks.items[0].preview_url)
+                console.log("Album: " + data.tracks.items[0].album.name)
             }
-        })
+        }
+    })
 }
 
 movieThis = function(movie) {
@@ -38,7 +43,11 @@ movieThis = function(movie) {
         let URL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy"
 
         axios.get(URL).then(function(response) {
-
+            fs.appendFile("log.txt","\n" + "Movie title: " + response.data.Title + "\n" + "Release year: " + response.data.Year + "\n" + "IMBD rating: " + response.data.imdbRating + "\n" + "Rotten Tomatoes rating: " + response.data.Ratings[1].Value + "\n" + "Country where produced: " + response.data.Country + "\n" + "Languages: " + response.data.Language + "\n" + "Actors: " + response.data.Actors, function(err) {
+                if (err) {
+                    console.log(err)
+                }
+            })
             console.log("Movie title: " + response.data.Title)
             console.log("Release year: " + response.data.Year)
             console.log("IMBD rating: " + response.data.imdbRating)
@@ -54,7 +63,11 @@ concertThis = function(artist) {
         let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
 
         axios.get(URL).then(function(response) {
-
+            fs.appendFile("log.txt","\n" + "Name of the venue: " + response.data[0].venue.name + "\n" + "Venue location: " + response.data[0].venue.city + ", " + response.data[0].venue.country + "\n" + "Event Date: " + moment(response.data[0].datetime).format("MM-DD-YYYY"), function(err) {
+                if (err) {
+                    console.log(err)
+                }
+            })
             console.log("Name of the venue: " + response.data[0].venue.name)
             console.log("Venue location: " + response.data[0].venue.city + ", " + response.data[0].venue.country)
             console.log("Event Date: " + moment(response.data[0].datetime).format("MM-DD-YYYY"))
@@ -68,7 +81,6 @@ doWhatThis = function() {
         }else {
 
             let randomText = data.split(",")
-                search = randomText[0]
                 term = randomText[1]
             spotifyThis(randomText[1])
         }
