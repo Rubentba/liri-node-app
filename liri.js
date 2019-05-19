@@ -1,31 +1,39 @@
+// Used to obtain hidden keys for Spotify API
 require("dotenv").config();
 
+// Constant variables needed for code to work.
 const keys = require("./keys.js"),
       axios = require("axios"),
       fs = require("fs"),
       Spotify = require("node-spotify-api"),
       moment = require("moment")
 
+// Variables that catch user input.
 var search = process.argv[2],
     term = process.argv.slice(3).join(" ")
 
+// Calls Spotify API and displays the listed parameters in the console.
 spotifyThis = function(song) {
+    // If no parameter is entered, default to this song.
     if(!song){
         song = "The Sign by Ace of Base"
     }
+    // Variable needed to access information within keys.js
     var spotify = new Spotify(keys.spotify)
-
+    // Queries spotify API and returns information to console.
     spotify.search({ type: 'track', query: song }, function(error, data) {
-        
+        // Catches error then displays it.
         if (error) {
             console.log(error)
         } else { 
+            // For Loop needed to catch the first artist found when API is called.
             for (var i = 0; i < data.tracks.items[0].artists.length; i++) {
-                fs.appendFile("log.txt",`\nArtist:       ${data.tracks.items[0].artists[0].name}\n` + `Song:         ${data.tracks.items[0].name}\n` + `Preview Link: ${data.tracks.items[0].preview_url}\n` + `Album:        ${data.tracks.items[0].album.name}`, function(err) {
+                fs.appendFile("log.txt",`\nArtist:        ${data.tracks.items[0].artists[0].name}\n` + `Song:         ${data.tracks.items[0].name}\n` + `Preview Link: ${data.tracks.items[0].preview_url}\n` + `Album:        ${data.tracks.items[0].album.name}\n`, function(err) {
                     if (err) {
                         console.log(err)
                     }
                 })
+                // Displays caught information.
                 console.log(`Artist:       ${data.tracks.items[0].artists[0].name}`)
                 console.log(`Song:         ${data.tracks.items[0].name}`)
                 console.log(`Preview Link: ${data.tracks.items[0].preview_url}`)
@@ -43,7 +51,7 @@ movieThis = function(movie) {
         let URL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy"
 
         axios.get(URL).then(function(response) {
-            fs.appendFile("log.txt",`\nMovie title: ${response.data.Title}\n` + `Release year: ${response.data.Year}\n` + `IMBD rating: ${response.data.imdbRating}\n` + `Rotten Tomatoes rating: ${response.data.Ratings[1].Value}\n` + `Country where produced: ${response.data.Country}\n` + `Languages: ${response.data.Language}\n` + `Actors: ${response.data.Actors}\n`, function(err) {
+            fs.appendFile("log.txt",`\nMovie title:            ${response.data.Title}\n` + `Release year:           ${response.data.Year}\n` + `IMBD rating:            ${response.data.imdbRating}\n` + `Rotten Tomatoes rating: ${response.data.Ratings[1].Value}\n` + `Country where produced: ${response.data.Country}\n` + `Languages:              ${response.data.Language}\n` + `Actors:                 ${response.data.Actors}\n`, function(err) {
                 if (err) {
                     console.log(err)
                 }
@@ -63,7 +71,7 @@ concertThis = function(artist) {
         let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
 
         axios.get(URL).then(function(response) {
-            fs.appendFile("log.txt",`\nName of the venue: ${response.data[0].venue.name}\n` + `Venue location: ${response.data[0].venue.city + ", " + response.data[0].venue.country}\n` + `Event Date: ${moment(response.data[0].datetime).format("MM-DD-YYYY")}\n`, function(err) {
+            fs.appendFile("log.txt",`\nName of the venue: ${response.data[0].venue.name}\n` + `Venue location:    ${response.data[0].venue.city + ", " + response.data[0].venue.country}\n` + `Event Date:        ${moment(response.data[0].datetime).format("MM-DD-YYYY")}\n`, function(err) {
                 if (err) {
                     console.log(err)
                 }
