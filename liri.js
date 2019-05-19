@@ -69,8 +69,10 @@ var APIs = function() {
                 console.log(error)
             }else {
 
-                var randomText = data.split(",")
-                console.log("$ node liri.js " + randomText[0] + " " + randomText[1])
+                let randomText = data.split(",")
+                    search = randomText[0]
+                    term = randomText[1]
+                console.log(randomText[0] + " " +randomText[1])
             }
         })
     }
@@ -106,4 +108,3 @@ else if(search === undefined) {
 else {
     console.log("That is not a valid method.")
 }
-
