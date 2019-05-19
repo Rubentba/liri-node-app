@@ -63,7 +63,16 @@ var APIs = function() {
         })
     }
 
-    this.doWhatThis = function(doWhat) {
+    this.doWhatThis = function() {
+        fs.readFile("random.txt", "utf8", function(error, data) {
+            if (error) {
+                console.log(error)
+            }else {
+
+                var randomText = data.split(",")
+                console.log("$ node liri.js " + randomText[0] + " " + randomText[1])
+            }
+        })
     }
 }
 
@@ -97,3 +106,4 @@ else if(search === undefined) {
 else {
     console.log("That is not a valid method.")
 }
+
