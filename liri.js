@@ -29,7 +29,7 @@ spotifyThis = function(song) {
             // For Loop needed to catch the first artist found when API is called.
             for (var i = 0; i < data.tracks.items[0].artists.length; i++) {
                 // Appends response and stores it within log.txt.
-                fs.appendFile("log.txt",`\nArtist:        ${data.tracks.items[0].artists[0].name}\n` + `Song:         ${data.tracks.items[0].name}\n` + `Preview Link: ${data.tracks.items[0].preview_url}\n` + `Album:        ${data.tracks.items[0].album.name}\n`, function(err) {
+                fs.appendFile("log.txt",`\nArtist:       ${data.tracks.items[0].artists[0].name}\n` + `Song:         ${data.tracks.items[0].name}\n` + `Preview Link: ${data.tracks.items[0].preview_url}\n` + `Album:        ${data.tracks.items[0].album.name}\n`, function(err) {
                     if (err) {
                         console.log(err)
                     }
