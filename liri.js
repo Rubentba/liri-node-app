@@ -109,30 +109,26 @@ doWhatThis = function() {
 }
 
 // State what API you're calling, then prints response.
-if (search === "concert-this") {
-    console.log(`\nSearching for concerts...\n`)
-    concertThis(term)
-} 
-
-else if(search === "spotify-this-song") {
-    console.log(`\nSearching for song...\n`)
-    spotifyThis(term)
-}
-
-else if(search === "movie-this") {
-    console.log(`\nSearching for movie...\n`)
-    movieThis(term)
-}
-
-else if(search === "do-what-it-says") {
-    console.log(`\n...\n`)
-    doWhatThis()
-}
-
-else if(search === undefined) {
-    console.log(`\nPlease enter a valid method to run LIRI.\n`)
-}
-    
-else {
-    console.log(`\nThat is not a valid method.\n`)
+switch (search) {
+    case "spotify-this-song":
+        console.log(`\nSearching for song...\n`)
+        spotifyThis(term)
+    break;
+    case "movie-this":
+        console.log(`\nSearching for movie...\n`)
+        movieThis(term)
+    break;
+    case "concert-this":
+        console.log(`\nSearching for concerts...\n`)
+        concertThis(term)
+    break;
+    case "do-what-it-says":
+        console.log(`\n...\n`)
+        doWhatThis()
+    break;
+    case undefined:
+        console.log(`\nPlease enter a valid method to run LIRI.\n`)
+    break;
+    default:
+        console.log(`\nThat is not a valid method.\n`)
 }
