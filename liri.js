@@ -100,10 +100,27 @@ doWhatThis = function() {
             console.log(error)
         }else {
             // Variable that stores data from random.txt and seperates it by the commas within it.
-            let randomText = data.split(",")
-                term = randomText[1]
-            // Calls spotifyThis within random text.
-            spotifyThis(randomText[1])
+            let randomText = data.split(",");
+            // Variables holding index of random.txt to then randomly call within the switch case
+            let spotTerm = randomText[1],
+                movieTerm = randomText[3],
+                concertTerm = randomText[5],
+                ranNum = Math.floor(Math.random() * 3)
+            // Switch Statement that randomly calls one of the three function depending on a random number.
+            // Outcome can be manipulated by changing random.txt file at index 1,3, and 5.
+                switch (ranNum) {
+                    case 0:
+                        spotifyThis(spotTerm)
+                    break;
+                    case 1:
+                        movieThis(movieTerm)
+                    break;
+                    case 2:
+                        concertThis(concertTerm)
+                    break;
+                    default:
+                        console.log("Try again.")
+                }
         }
     })
 }
